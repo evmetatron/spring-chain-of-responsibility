@@ -1,0 +1,74 @@
+name: Build
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [17, 21]
+
+    name: Build (Java ${{ matrix.java }})
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up git checkout
+        uses: actions/checkout@v6
+
+      - name: Set up java ${{ matrix.java }}
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java }}
+          cache: 'maven'
+
+      - name: Check formatting
+        run: mvn -B spotless:check
+
+      - name: Run tests
+        run: mvn -B --errors clean test
+
+      - name: Build jar
+        run: mvn -B --errors package -DskipTests
+
+      - name: Generate test coverage report
+        run: mvn jacoco:report
+
+      - name: Save coverage reports
+        uses: actions/upload-artifact@v7
+        with:
+          name: jacoco-report-java${{ matrix.java }}
+          path: target/site/jacoco/
+
+      - name: Write JUnit Summary
+        if: always()
+        run: |
+          TOTAL=$(grep -o 'tests="[0-9]*"' target/surefire-reports/*.xml | sed 's/[^0-9]//g' | awk '{sum+=$1} END {print sum}')
+          FAILURES=$(grep -o 'failures="[0-9]*"' target/surefire-reports/*.xml | sed 's/[^0-9]//g' | awk '{sum+=$1} END {print sum}')
+          ERRORS=$(grep -o 'errors="[0-9]*"' target/surefire-reports/*.xml | sed 's/[^0-9]//g' | awk '{sum+=$1} END {print sum}')
+
+          echo "## 🧪 Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Total: $TOTAL" >> $GITHUB_STEP_SUMMARY
+          echo "- Failures: $FAILURES" >> $GITHUB_STEP_SUMMARY
+          echo "- Errors: $ERRORS" >> $GITHUB_STEP_SUMMARY
+
+      - name: Write Coverage Summary
+        if: always()
+        run: |
+          LINE=$(grep 'counter type="INSTRUCTION"' target/site/jacoco/jacoco.xml | head -n 1)
+          COVERED=$(echo $LINE | awk -F'covered="' '{print $2}' | awk -F'"' '{print $1}')
+          MISSED=$(echo $LINE | awk -F'missed="' '{print $2}' | awk -F'"' '{print $1}')
+          TOTAL=$((COVERED + MISSED))
+          PERCENT=$((COVERED * 100 / TOTAL))
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 Coverage" >> $GITHUB_STEP_SUMMARY
+          echo "- Instruction coverage: $PERCENT%" >> $GITHUB_STEP_SUMMARY
+          echo "- Total: $TOTAL" >> $GITHUB_STEP_SUMMARY
+          echo "- Covered: $COVERED" >> $GITHUB_STEP_SUMMARY
+          echo "- Missed: $MISSED" >> $GITHUB_STEP_SUMMARY
