@@ -69,7 +69,7 @@ jobs:
 
       - name: Generate changelog
         run: |
-          git-cliff --config .github/workflows/cliff.toml --tag $NEW_VERSION --output CHANGELOG.md
+          git-cliff --config .github/cliff.toml --tag $NEW_VERSION --output CHANGELOG.md
 
       - name: Commit and create tag
         run: |
@@ -93,13 +93,13 @@ jobs:
 
       - name: Create release
         run: |
-          git-cliff --config .github/workflows/cliff.toml --latest > RELEASE_NOTES.md
+          git-cliff --config .github/cliff.toml --latest > RELEASE_NOTES.md
           mvn -B --errors clean package -DskipTests
           gh release create $NEW_VERSION --title "$NEW_VERSION" --notes-file RELEASE_NOTES.md target/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run deploy workflow
-        run: gh workflow run deploy.yml --ref $NEW_VERSION
+      - name: Run publish workflow
+        run: gh workflow run publish.yml --ref $NEW_VERSION
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

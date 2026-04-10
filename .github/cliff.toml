@@ -41,3 +41,7 @@ group = "📚 Documentation"
 [[git.commit_parsers]]
 message = "^refactor"
 group = "♻️ Refactoring"
+
+[[git.commit_parsers]]
+message = "^chore"
+group = "🔧 Misc"
