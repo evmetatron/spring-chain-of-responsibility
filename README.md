@@ -46,7 +46,7 @@ sequenceDiagram
 <dependency>
     <groupId>io.github.evmetatron</groupId>
     <artifactId>spring-chain-of-responsibility</artifactId>
-    <version>0.0.0-SNAPSHOT</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 <!-- version:end -->
@@ -56,7 +56,7 @@ sequenceDiagram
 <!-- version:start -->
 ```gradle
 dependencies {
-    implementation("io.github.evmetatron:spring-chain-of-responsibility:0.0.0-SNAPSHOT")
+    implementation("io.github.evmetatron:spring-chain-of-responsibility:0.1.0")
 }
 ```
 <!-- version:end -->
