@@ -25,16 +25,13 @@ jobs:
           cache: 'maven'
 
       - name: Import GPG key
-        run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes
-          echo "Private key imported"
+        run: echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import --no-tty --batch --yes
 
       - name: Publish to Maven Central
         run: |
           mvn -B deploy \
             -DskipTests \
-            --settings .github/settings.xml \
-            -X
+            --settings .github/settings.xml
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
