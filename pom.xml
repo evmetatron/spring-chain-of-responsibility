@@ -18,7 +18,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <springframework.version>6.2.7</springframework.version>
+        <springframework.version>7.0.6</springframework.version>
         <maven.source.version>3.4.0</maven.source.version>
         <maven.javadoc.version>3.12.0</maven.javadoc.version>
         <maven.gpg.version>3.2.8</maven.gpg.version>
