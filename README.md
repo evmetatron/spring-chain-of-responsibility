@@ -18,7 +18,7 @@ sequenceDiagram
     participant ChainB
     participant ChainC
 
-    Client->>ChainA: handle()
+    Client->>ChainA: execute()
     ChainA->>ChainB: next.handle()
     ChainB->>ChainC: next.handle()
 ```
