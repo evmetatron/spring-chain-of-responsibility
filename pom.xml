@@ -25,7 +25,7 @@
         <sonatype.central.version>0.10.0</sonatype.central.version>
 
         <!-- Checking -->
-        <spotless.version>3.5.0</spotless.version>
+        <spotless.version>3.6.0</spotless.version>
         <jacoco.version>0.8.14</jacoco.version>
 
         <!-- Only for tests -->
