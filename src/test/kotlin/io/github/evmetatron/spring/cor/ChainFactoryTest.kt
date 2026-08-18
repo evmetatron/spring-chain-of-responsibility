@@ -4,7 +4,10 @@ import io.github.evmetatron.spring.cor.fixtures.ChainA
 import io.github.evmetatron.spring.cor.fixtures.ChainB
 import io.github.evmetatron.spring.cor.fixtures.ChainC
 import io.github.evmetatron.spring.cor.fixtures.ChainInterface
+import io.github.evmetatron.spring.cor.fixtures.ChainWithoutNext
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
@@ -53,6 +56,18 @@ class ChainFactoryTest {
         val actual = chainFactory.createChain(ChainInterface::class.java)
 
         actual.handle()
+    }
+
+    @Test
+    fun `throws when a bean has no field annotated with @ChainNext`() {
+        mockBeans(listOf(ChainWithoutNext()))
+
+        val exception =
+            shouldThrow<ChainNextFieldNotFoundException> {
+                chainFactory.createChain(ChainInterface::class.java)
+            }
+
+        exception.message shouldContain "ChainWithoutNext"
     }
 
     private fun mockBeans(beans: List<ChainInterface>) {

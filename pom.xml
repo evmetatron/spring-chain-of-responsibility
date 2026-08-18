@@ -131,6 +131,10 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
 
+                <configuration>
+                    <jvmTarget>${java.version}</jvmTarget>
+                </configuration>
+
                 <executions>
                     <execution>
                         <id>test-compile</id>

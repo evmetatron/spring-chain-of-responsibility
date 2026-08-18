@@ -36,3 +36,10 @@ class ChainC : ChainInterface {
         next.handle()
     }
 }
+
+@Order(1)
+class ChainWithoutNext : ChainInterface {
+    override fun handle() {
+        // no @ChainNext field on purpose
+    }
+}
