@@ -1,5 +1,106 @@
 
 
+## [0.2.0] - 2026-08-18
+
+
+### Docs
+
+
+- Update README.md
+
+
+### ♻️ Refactoring
+
+
+- Remove useless args and executes from ci
+
+- Fix license, readme and factory classes (#25)
+
+- Replace hand-rolled coverage summary with jacoco-badge-generator (#29)
+
+
+### 🐛 Bug Fixes
+
+
+- Detect a brand-new jacoco.svg badge before committing it (#31)
+
+
+### 📚 Documentation
+
+
+- Change license from apache to gpl
+
+- Add Javadoc to public API classes (#27)
+
+- Add Requirements and manual-approach comparison to README (#28)
+
+- Document ChainAutoConfiguration constructor and bean method (#30)
+
+- Add CONTRIBUTING.md (#32)
+
+
+### 🔧 Misc
+
+
+- Add dependabot
+
+- Dependencies: bump org.junit.jupiter:junit-jupiter from 5.13.4 to 6.0.3 (#2)
+
+- Dependencies: bump org.springframework:spring-framework-bom from 6.2.7 to 7.0.6 (#1)
+
+- Dependencies: bump kotlin.version from 2.2.0 to 2.3.20 (#3)
+
+- Dependencies: bump org.springframework:spring-framework-bom (#4)
+
+- Dependencies: bump kotlin.version from 2.3.20 to 2.3.21 (#5)
+
+- Dependencies: bump com.diffplug.spotless:spotless-maven-plugin (#6)
+
+- Dependencies: bump io.mockk:mockk-jvm from 1.14.9 to 1.14.11 (#7)
+
+- Dependencies: bump org.junit.jupiter:junit-jupiter (#9)
+
+- Dependencies: bump com.diffplug.spotless:spotless-maven-plugin (#8)
+
+- Dependencies: bump kotlin.version from 2.3.21 to 2.4.0 (#10)
+
+- Dependencies: bump org.jacoco:jacoco-maven-plugin (#11)
+
+- Dependencies: bump org.springframework:spring-framework-bom from 7.0.7 to 7.0.8 (#12)
+
+- CI: bump actions/checkout from 6 to 7 (#13)
+
+- Dependencies: bump org.sonatype.central:central-publishing-maven-plugin from 0.10.0 to 0.11.0 (#14)
+
+- Dependencies: bump com.diffplug.spotless:spotless-maven-plugin from 3.6.0 to 3.7.0 (#15)
+
+- Dependencies: bump io.kotest:kotest-assertions-core-jvm from 6.1.11 to 6.2.1 (#16)
+
+- Dependencies: bump com.diffplug.spotless:spotless-maven-plugin from 3.7.0 to 3.8.0 (#17)
+
+- Dependencies: bump org.junit.jupiter:junit-jupiter from 6.1.0 to 6.1.1 (#18)
+
+- Dependencies: bump io.kotest:kotest-assertions-core-jvm from 6.2.1 to 6.2.2 (#19)
+
+- Dependencies: bump kotlin.version from 2.4.0 to 2.4.10 (#20)
+
+- Dependencies: bump org.junit.jupiter:junit-jupiter from 6.1.1 to 6.1.2 (#21)
+
+- Dependencies: bump io.kotest:kotest-assertions-core-jvm from 6.2.2 to 6.2.3 (#22)
+
+- Dependencies: bump com.diffplug.spotless:spotless-maven-plugin from 3.8.0 to 3.9.0 (#23)
+
+- Dependencies: bump org.junit.jupiter:junit-jupiter from 6.1.2 to 6.1.3 (#24)
+
+- Update JaCoCo coverage badge
+
+
+### 🚀 Features
+
+
+- Add ChainNextFieldNotFoundException (#26)
+
+
 ## [0.1.0] - 2026-04-10
 
 

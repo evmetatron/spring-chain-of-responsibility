@@ -82,7 +82,7 @@ not just an ordered loop.
 <dependency>
     <groupId>io.github.evmetatron</groupId>
     <artifactId>spring-chain-of-responsibility</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 <!-- version:end -->
@@ -92,7 +92,7 @@ not just an ordered loop.
 <!-- version:start -->
 ```gradle
 dependencies {
-    implementation("io.github.evmetatron:spring-chain-of-responsibility:0.1.0")
+    implementation("io.github.evmetatron:spring-chain-of-responsibility:0.2.0")
 }
 ```
 <!-- version:end -->
