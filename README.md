@@ -1,8 +1,8 @@
 # Spring Chain Of Responsibility
 
 [![CI](https://github.com/evmetatron/spring-chain-of-responsibility/workflows/build/badge.svg)](https://github.com/evmetatron/spring-chain-of-responsibility/actions?query=workflow%3Abuild)
-[![Maven Central](https://maven-badges.sml.io/sonatype-central/io.github.evmetatron/spring-chain-of-responsibility/badge.svg)](https://maven-badges.sml.io/sonatype-central/io.github.evmetatron/spring-chain-of-responsibility)
-[![Javadocs](http://www.javadoc.io/badge/io.github.evmetatron/spring-chain-of-responsibility.svg)](http://www.javadoc.io/doc/io.github.evmetatron/spring-chain-of-responsibility)
+[![Maven Central](https://maven-badges.sml.io/sonatype-central/io.github.evmetatron/spring-chain-of-responsibility/badge.svg?v=0.2.0)](https://maven-badges.sml.io/sonatype-central/io.github.evmetatron/spring-chain-of-responsibility)
+[![Javadocs](http://www.javadoc.io/badge/io.github.evmetatron/spring-chain-of-responsibility.svg?v=0.2.0)](http://www.javadoc.io/doc/io.github.evmetatron/spring-chain-of-responsibility)
 [![Coverage](https://raw.githubusercontent.com/evmetatron/spring-chain-of-responsibility/main/.github/badges/jacoco.svg)](https://github.com/evmetatron/spring-chain-of-responsibility/actions?query=workflow%3Abuild)
 
 Library for building Chain of Responsibility in Spring applications

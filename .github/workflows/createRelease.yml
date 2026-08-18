@@ -64,6 +64,10 @@ jobs:
           mvn versions:set -DnewVersion=$NEW_VERSION -DgenerateBackupPoms=false
           sed -i "/<!-- version:start -->/,/<!-- version:end -->/s/[0-9]\+\.[0-9]\+\.[0-9]\+\(-SNAPSHOT\)\?/$NEW_VERSION/g" README.md
 
+          # Bust GitHub's Camo image cache for the Maven Central / Javadoc badges, which are
+          # otherwise served stale until Camo's own cache expires.
+          sed -i "s/?v=[0-9]\+\.[0-9]\+\.[0-9]\+/?v=$NEW_VERSION/g" README.md
+
       - name: Set up git-cliff
         uses: taiki-e/install-action@git-cliff
 
