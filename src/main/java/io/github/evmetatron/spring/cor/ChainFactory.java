@@ -2,6 +2,7 @@ package io.github.evmetatron.spring.cor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -34,6 +35,8 @@ public class ChainFactory {
   }
 
   private <T> void injectNext(T current, T next) {
+    AtomicBoolean injected = new AtomicBoolean(false);
+
     ReflectionUtils.doWithFields(
         AopUtils.getTargetClass(current),
         field -> {
@@ -41,7 +44,12 @@ public class ChainFactory {
             field.setAccessible(true);
             field.set(current, next);
             field.setAccessible(false);
+            injected.set(true);
           }
         });
+
+    if (!injected.get()) {
+      throw new ChainNextFieldNotFoundException(AopUtils.getTargetClass(current));
+    }
   }
 }

@@ -116,6 +116,8 @@ The order is defined using `@Order`.
 
 - Do not forget `@Component` or `@Service`
 - `@Order` defines execution order
+- Every bean must have a field annotated with `@ChainNext` — otherwise `ChainFactory` throws
+  `ChainNextFieldNotFoundException`
 
 ```java
 import io.github.evmetatron.spring.cor.ChainNext;
