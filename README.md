@@ -63,6 +63,10 @@ dependencies {
 
 ## Create bean by chain interface
 
+### With Spring Boot
+
+`ChainFactory` is registered automatically via Spring Boot autoconfiguration — just autowire it.
+
 ```java
 import io.github.evmetatron.spring.cor.ChainFactory;
 import org.springframework.context.annotation.Bean;
@@ -70,6 +74,33 @@ import org.springframework.context.annotation.Bean;
 @Bean
 public ChainInterface chain(@Autowired ChainFactory chainFactory) {
     return chainFactory.createChain(ChainInterface.class);
+}
+```
+
+### Without Spring Boot (plain Spring context)
+
+The autoconfiguration file only gets picked up by Spring Boot's autoconfiguration mechanism.
+In a plain Spring application, register `ChainFactory` yourself — either by importing the
+provided configuration:
+
+```java
+import io.github.evmetatron.spring.cor.ChainAutoConfiguration;
+import org.springframework.context.annotation.Import;
+
+@Import(ChainAutoConfiguration.class)
+class AppConfig {}
+```
+
+or by declaring the bean directly:
+
+```java
+import io.github.evmetatron.spring.cor.ChainFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+
+@Bean
+public ChainFactory chainFactory(ApplicationContext context) {
+    return new ChainFactory(context);
 }
 ```
 

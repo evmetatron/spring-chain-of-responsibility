@@ -10,7 +10,7 @@ import org.springframework.util.ReflectionUtils;
 public class ChainFactory {
   private final ApplicationContext context;
 
-  ChainFactory(ApplicationContext context) {
+  public ChainFactory(ApplicationContext context) {
     this.context = context;
   }
 
