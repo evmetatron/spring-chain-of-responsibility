@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
-class ChainAutoConfiguration {
+public class ChainAutoConfiguration {
   @Bean
-  ChainFactory chainFactory(@Autowired ApplicationContext context) {
+  public ChainFactory chainFactory(@Autowired ApplicationContext context) {
     return new ChainFactory(context);
   }
 }
