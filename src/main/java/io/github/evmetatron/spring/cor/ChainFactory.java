@@ -8,13 +8,43 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.util.ReflectionUtils;
 
+/**
+ * Builds a Chain of Responsibility from Spring beans that implement a common interface.
+ *
+ * <p>Beans implementing the given interface are collected from the {@link ApplicationContext},
+ * ordered using {@link org.springframework.core.annotation.Order @Order}, and linked together by
+ * injecting each bean's {@link ChainNext @ChainNext}-annotated field with the next bean in the
+ * chain.
+ *
+ * <p>With Spring Boot, a {@code ChainFactory} bean is registered automatically via {@link
+ * ChainAutoConfiguration}. In a plain Spring context, either import {@code
+ * ChainAutoConfiguration} or construct this class directly.
+ */
 public class ChainFactory {
   private final ApplicationContext context;
 
+  /**
+   * Creates a factory that looks up chain beans in the given context.
+   *
+   * @param context the Spring context to collect chain beans from
+   */
   public ChainFactory(ApplicationContext context) {
     this.context = context;
   }
 
+  /**
+   * Collects all beans implementing {@code chainInterface}, orders them via {@code @Order}, and
+   * wires each one's {@code @ChainNext} field to the next bean in the chain.
+   *
+   * <p>The last bean in the chain, and the return value when no beans implement the interface,
+   * receive a no-op proxy as their next link so calling into an unconfigured tail never throws.
+   *
+   * @param chainInterface the chain interface to build a chain for
+   * @param <T> the chain interface type
+   * @return the first bean in order, i.e. the entry point of the chain
+   * @throws ChainNextFieldNotFoundException if a bean implementing {@code chainInterface} has no
+   *     field annotated with {@code @ChainNext}
+   */
   public <T> T createChain(Class<T> chainInterface) {
     List<T> beans = new ArrayList<>(context.getBeansOfType(chainInterface).values());
 
