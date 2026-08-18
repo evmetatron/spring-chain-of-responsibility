@@ -8,6 +8,9 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
+
     strategy:
       fail-fast: false
       matrix:
@@ -57,18 +60,18 @@ jobs:
           echo "- Failures: $FAILURES" >> $GITHUB_STEP_SUMMARY
           echo "- Errors: $ERRORS" >> $GITHUB_STEP_SUMMARY
 
-      - name: Write Coverage Summary
-        if: always()
-        run: |
-          LINE=$(grep 'counter type="INSTRUCTION"' target/site/jacoco/jacoco.xml | head -n 1)
-          COVERED=$(echo $LINE | awk -F'covered="' '{print $2}' | awk -F'"' '{print $1}')
-          MISSED=$(echo $LINE | awk -F'missed="' '{print $2}' | awk -F'"' '{print $1}')
-          TOTAL=$((COVERED + MISSED))
-          PERCENT=$((COVERED * 100 / TOTAL))
+      - name: Generate JaCoCo coverage badge and summary
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          jacoco-csv-file: target/site/jacoco/jacoco.csv
 
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 📊 Coverage" >> $GITHUB_STEP_SUMMARY
-          echo "- Instruction coverage: $PERCENT%" >> $GITHUB_STEP_SUMMARY
-          echo "- Total: $TOTAL" >> $GITHUB_STEP_SUMMARY
-          echo "- Covered: $COVERED" >> $GITHUB_STEP_SUMMARY
-          echo "- Missed: $MISSED" >> $GITHUB_STEP_SUMMARY
+      - name: Commit updated coverage badge
+        if: matrix.java == 21 && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          if ! git diff --quiet -- .github/badges/jacoco.svg; then
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git add .github/badges/jacoco.svg
+            git commit -m "chore: Update JaCoCo coverage badge"
+            git push origin HEAD:main
+          fi

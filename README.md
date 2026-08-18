@@ -3,6 +3,7 @@
 [![CI](https://github.com/evmetatron/spring-chain-of-responsibility/workflows/build/badge.svg)](https://github.com/evmetatron/spring-chain-of-responsibility/actions?query=workflow%3Abuild)
 [![Maven Central](https://maven-badges.sml.io/sonatype-central/io.github.evmetatron/spring-chain-of-responsibility/badge.svg)](https://maven-badges.sml.io/sonatype-central/io.github.evmetatron/spring-chain-of-responsibility)
 [![Javadocs](http://www.javadoc.io/badge/io.github.evmetatron/spring-chain-of-responsibility.svg)](http://www.javadoc.io/doc/io.github.evmetatron/spring-chain-of-responsibility)
+[![Coverage](https://raw.githubusercontent.com/evmetatron/spring-chain-of-responsibility/main/.github/badges/jacoco.svg)](https://github.com/evmetatron/spring-chain-of-responsibility/actions?query=workflow%3Abuild)
 
 Library for building Chain of Responsibility in Spring applications
 without manual wiring of dependencies.
