@@ -13,6 +13,15 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 public class ChainAutoConfiguration {
+  /** Creates the autoconfiguration. */
+  public ChainAutoConfiguration() {}
+
+  /**
+   * Registers the {@link ChainFactory} bean.
+   *
+   * @param context the application context to autowire into the factory
+   * @return a {@link ChainFactory} backed by {@code context}
+   */
   @Bean
   public ChainFactory chainFactory(@Autowired ApplicationContext context) {
     return new ChainFactory(context);
