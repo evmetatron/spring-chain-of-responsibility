@@ -37,6 +37,41 @@ sequenceDiagram
 - Beans are sorted using `@Order`
 - The next element is injected via `@ChainNext`
 
+## Why not just `@Autowired List<Interface>`?
+
+The common way to build an ordered chain in plain Spring, without this library, looks like this:
+
+```java
+@Component
+public class ManualChain {
+    private final List<ChainInterface> handlers;
+
+    public ManualChain(List<ChainInterface> handlers) {
+        this.handlers = new ArrayList<>(handlers);
+        this.handlers.sort(AnnotationAwareOrderComparator.INSTANCE);
+    }
+
+    public void handle() {
+        for (ChainInterface handler : handlers) {
+            handler.handle();
+        }
+    }
+}
+```
+
+That works for handlers that always run start to finish, but every handler has to know about the
+whole list, and there's no clean way for a handler to stop the chain or skip the rest based on its
+own logic. `spring-chain-of-responsibility` wires each bean directly to the *next* one via
+`@ChainNext`, so a handler decides on its own whether to continue — a real Chain of Responsibility,
+not just an ordered loop.
+
+## Requirements
+
+- Java 17+
+- Spring Boot 3.x+ for automatic autoconfiguration via `AutoConfiguration.imports`
+  (see [Without Spring Boot](#without-spring-boot-plain-spring-context) otherwise)
+- Built and tested against Spring Framework 7.0.x (via `spring-framework-bom`)
+
 ## Add dependency
 
 ### Add library in pom
