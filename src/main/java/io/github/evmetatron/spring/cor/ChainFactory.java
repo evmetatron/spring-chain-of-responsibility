@@ -17,8 +17,8 @@ import org.springframework.util.ReflectionUtils;
  * chain.
  *
  * <p>With Spring Boot, a {@code ChainFactory} bean is registered automatically via {@link
- * ChainAutoConfiguration}. In a plain Spring context, either import {@code
- * ChainAutoConfiguration} or construct this class directly.
+ * ChainAutoConfiguration}. In a plain Spring context, either import {@code ChainAutoConfiguration}
+ * or construct this class directly.
  */
 public class ChainFactory {
   private final ApplicationContext context;

@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
  *
  * <p>The annotated field's type must be the chain interface passed to {@link
  * ChainFactory#createChain(Class)}. Every bean participating in a chain must declare exactly one
- * such field, including the last one in order &mdash; it receives a no-op implementation so it
- * can be called unconditionally.
+ * such field, including the last one in order &mdash; it receives a no-op implementation so it can
+ * be called unconditionally.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
