@@ -89,7 +89,7 @@ jobs:
           git push origin $NEW_VERSION
 
       - name: Set up java 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'zulu'
           java-version: 21
