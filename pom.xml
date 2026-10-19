@@ -173,6 +173,17 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- JDK 21 self-attach regression: without allowAttachSelf, MockK/ByteBuddy
+                         falls back to attaching via an external process, which crashes with a
+                         native JPLISAgent assertion when jacoco's javaagent is already loaded. -->
+                    <argLine>@{argLine} -Djdk.attach.allowAttachSelf=true</argLine>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
