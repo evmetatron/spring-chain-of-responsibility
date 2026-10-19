@@ -174,9 +174,28 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>resolve-byte-buddy-agent</id>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>@{argLine} -Djdk.attach.allowAttachSelf=true</argLine>
+                    <!--
+                        MockK's ByteBuddy agent fails to self-attach on JDK 21 CI runners when
+                        JaCoCo's own agent is already loaded (java.lang.instrument native assertion
+                        failure). Preloading byte-buddy-agent via -javaagent lets ByteBuddyAgent
+                        reuse that Instrumentation instance instead of self-attaching.
+                    -->
+                    <argLine>@{argLine} -javaagent:${net.bytebuddy:byte-buddy-agent:jar} -Djdk.attach.allowAttachSelf=true</argLine>
                 </configuration>
             </plugin>
 
