@@ -22,6 +22,8 @@
         <maven.source.version>3.4.0</maven.source.version>
         <maven.javadoc.version>3.12.0</maven.javadoc.version>
         <maven.gpg.version>3.2.8</maven.gpg.version>
+        <maven.surefire.version>3.6.0</maven.surefire.version>
+        <maven.dependency.version>3.11.0</maven.dependency.version>
         <sonatype.central.version>0.11.0</sonatype.central.version>
 
         <!-- Checking -->
@@ -175,6 +177,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependency.version}</version>
                 <executions>
                     <execution>
                         <id>resolve-byte-buddy-agent</id>
@@ -188,14 +191,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <!--
                         MockK's ByteBuddy agent fails to self-attach on JDK 21 CI runners when
                         JaCoCo's own agent is already loaded (java.lang.instrument native assertion
                         failure). Preloading byte-buddy-agent via -javaagent lets ByteBuddyAgent
-                        reuse that Instrumentation instance instead of self-attaching.
+                        reuse that Instrumentation instance instead of self-attaching. Both
+                        properties must use the deferred @{...} syntax, not ${...}, since they're
+                        populated by plugins at build time rather than at POM parse time.
                     -->
-                    <argLine>@{argLine} -javaagent:${net.bytebuddy:byte-buddy-agent:jar} -Djdk.attach.allowAttachSelf=true</argLine>
+                    <argLine>@{argLine} -javaagent:@{net.bytebuddy:byte-buddy-agent:jar} -Djdk.attach.allowAttachSelf=true</argLine>
                 </configuration>
             </plugin>
 
