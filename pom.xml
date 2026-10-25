@@ -24,7 +24,7 @@
         <maven.gpg.version>3.2.8</maven.gpg.version>
         <maven.surefire.version>3.6.0</maven.surefire.version>
         <maven.dependency.version>3.11.0</maven.dependency.version>
-        <sonatype.central.version>0.11.0</sonatype.central.version>
+        <sonatype.central.version>0.12.0</sonatype.central.version>
 
         <!-- Checking -->
         <spotless.version>3.10.4</spotless.version>
